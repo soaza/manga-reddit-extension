@@ -12,3 +12,5 @@ yarn build:linux # on Linux
 ```
 
 ![Screenshot](./screenshot.png)
+
+Credits to Thomas Wang for the NextJS-chrome template : https://github.com/thomaswang/next-chrome
