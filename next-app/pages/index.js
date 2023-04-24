@@ -25,10 +25,17 @@ const IndexPage = () => {
   };
 
   useEffect(() => {
-    const [mangaName, chapterNumber] = document.title
-      .toLowerCase()
-      .split("chapter");
-    setSearchOptions({ mangaName, chapterNumber });
+    if (window.chrome) {
+      console.log(chrome);
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var currentTab = tabs[0];
+        var pageTitle = currentTab.title;
+        const [mangaName, chapterNumber] = pageTitle
+          .toLowerCase()
+          .split("chapter");
+        setSearchOptions({ mangaName, chapterNumber });
+      });
+    }
   }, []);
 
   return (
@@ -42,11 +49,7 @@ const IndexPage = () => {
         }}
       >
         <div style={{ margin: "auto", fontSize: 30, width: 30 }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            class="_1O4jTk-dZ-VIxsCuYB6OR8 "
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <g>
               <circle fill="#FF4500" cx="10" cy="10" r="10"></circle>
               <path
@@ -57,36 +60,43 @@ const IndexPage = () => {
           </svg>
         </div>
 
-        <input
-          style={{
-            borderRadius: 10,
-            border: "1px solid",
-            padding: 5,
-          }}
-          value={searchOptions.mangaName}
-          onChange={(e) => {
-            setSearchOptions((prevState) => ({
-              ...prevState,
-              mangaName: e.target.value,
-            }));
-          }}
-          placeholder="Manga Name"
-        />
-        <input
-          style={{
-            borderRadius: 10,
-            border: "1px solid",
-            padding: 5,
-          }}
-          value={searchOptions.chapterNumber}
-          onChange={(e) => {
-            setSearchOptions((prevState) => ({
-              ...prevState,
-              chapterNumber: e.target.value,
-            }));
-          }}
-          placeholder="Chapter Number"
-        />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          Manga Name:
+          <input
+            style={{
+              borderRadius: 10,
+              border: "1px solid",
+              padding: 5,
+            }}
+            value={searchOptions.mangaName}
+            onChange={(e) => {
+              setSearchOptions((prevState) => ({
+                ...prevState,
+                mangaName: e.target.value,
+              }));
+            }}
+            placeholder="Manga Name"
+          />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          Chapter Number:
+          <input
+            style={{
+              borderRadius: 10,
+              border: "1px solid",
+              padding: 5,
+            }}
+            value={searchOptions.chapterNumber}
+            onChange={(e) => {
+              setSearchOptions((prevState) => ({
+                ...prevState,
+                chapterNumber: e.target.value,
+              }));
+            }}
+            placeholder="Chapter Number"
+          />
+        </div>
 
         <div
           style={{
