@@ -25,7 +25,7 @@ export const Discussion = ({ postId }) => {
       {comments
         .sort((a, b) => (a.score > b.score ? -1 : 1))
         .map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} comment={comment} isChild={false} />
         ))}
     </div>
   );

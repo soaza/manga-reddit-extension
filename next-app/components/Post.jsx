@@ -28,7 +28,11 @@ export const Post = ({ post }) => {
         {post.title}
       </div>
       <div>{post.score} votes</div>
-      <div>{post.url}</div>
+      <a
+        target="_blank"
+        href={`https://reddit.com${post.permalink}`}
+        style={{ textDecoration: "underline" }}
+      >{`https://reddit.com${post.permalink}`}</a>
 
       {showDiscussion && <Discussion postId={post.id} />}
     </div>
